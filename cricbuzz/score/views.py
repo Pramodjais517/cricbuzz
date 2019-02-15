@@ -13,14 +13,14 @@ class ScoreView(View):
 
     def get(self,request,*args,**kwargs):
         res = requests.get('https://www.cricbuzz.com/live-cricket-scores/20195/rsa-vs-sl-1st-test-sri-lanka-tour-of-south-africa-2019')
-        # soup = bs4.BeautifulSoup(res.text,'html.parser')
-        # score = soup.select('.cb-min-bat-rw > .cb-font-20')
-        # scr=score[0].text
-        print('hello')
+        soup = bs4.BeautifulSoup(res.text,'html.parser')
+        # for a in soup.find_all('a', href=True):
+        #     a['href'] = "//www.cricbuzz.com" + a['href']
         # time = threading.Timer(15,self.get)
         # time.start()
+        html = soup.select('.cb-min-bat-rw > .cb-font-20')
         context = {
-             'html':res
+             'html':html[0].text,
+            'text': "hello"
         }
-        return render(request, 'score.html', context)
-
+        return render(request,'score.html', context)
